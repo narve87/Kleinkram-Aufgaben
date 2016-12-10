@@ -35,15 +35,15 @@ public class pwgen {
 	return pwarray;
 	}
 	
-	public static void main (String[] args) {
+	public String create () {
 		SecureRandom random = new SecureRandom();
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Wie lang solls PW werden?");
 		int arraylength=sc.nextInt();
-		sc.close();
+//		sc.close();
 		if (arraylength==0){
 			System.out.println("Schlaukopf ...");
-			return;
+			return "";
 			}
 		int pw[]= new int[arraylength];							//Array erzeugen
 		for (int i=0; i<(arraylength/4); i++) {
@@ -70,6 +70,15 @@ public class pwgen {
 			System.out.print((char)pw[i]);
 		}
 		System.out.println();
+		String retour="";
+		for (int a=0; a<pw.length; a++) {
+			retour = retour+(char)pw[a];
+		}
+		return retour;
+	}
+	
+	public static void main (String args[]) {
+	//	create();
 	}
 }
 

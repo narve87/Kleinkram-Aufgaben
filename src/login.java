@@ -63,6 +63,9 @@ public class login {
 	}
 	
 	public static void main (String[] args){ // throws NoSuchAlgorithmException {
+		pwgen pwg = new pwgen();
+//		String test = pwg.create();
+//		System.out.println(test);
 //		MessageDigest md = MessageDigest.getInstance("SHA-512");
 		Scanner sc = new Scanner(System.in);
 		String[][] Credentials = new String[1][2]; //Deklaration und Erzeugung des Arrays
@@ -161,8 +164,11 @@ public class login {
 						break;
 					case 3:
 						tester=check_uname(cuser, Credentials);
-						System.out.println("Bitte neues PW eingeben:");
-						Credentials[tester][1]=sc.next();
+						if (tester>0) {
+							System.out.println("Bitte neues PW eingeben:");
+							Credentials[tester][1]=sc.next();
+						}
+						
 						break;
 					case 4:
 						if (acccount==Credentials.length) {
@@ -171,9 +177,9 @@ public class login {
 						System.out.println("Bitte Username eingeben.");
 						String nuser=sc.next();
 						if (check_uname(nuser, Credentials)==0) {
-							System.out.println("Bitte Passwort eingeben:");
+							//System.out.println("Bitte Passwort eingeben:");
 							Credentials[acccount][0]=nuser;
-							Credentials[acccount][1]=sc.next();
+							Credentials[acccount][1]=pwg.create();
 							acccount++;
 							System.out.println("Benutzer erfolgreich angelegt.");
 							break;
