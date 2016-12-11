@@ -1,6 +1,27 @@
 import java.util.Scanner;
 public class pseudoterminplaner {
 
+	@SuppressWarnings("resource")
+	public static int get_day() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Tag?");
+		System.out.println("1: Montag");
+		System.out.println("2: Dienstag");
+		System.out.println("3: Mittwoch");
+		System.out.println("4: Donnerstag");
+		System.out.println("5: Freitag");
+		System.out.println("6: Samstag");
+		System.out.println("7: Sonntag");
+		int day=(sc.nextInt()-1);
+		if (day>=0 && day<=6) {
+			return day;
+		}
+		else {
+			System.out.println("Bitte korrekten Tag wählen.");
+			return get_day();
+		}
+	}
+	
 	public static void main(String[] args) {
 		String[][] termine = new String[7][25];
 		for (int i=0;i<7;i++) {
@@ -34,15 +55,7 @@ public class pseudoterminplaner {
 				exit=true;
 				break;
 			case 1:
-				System.out.println("Tag?");
-				System.out.println("1: Montag");
-				System.out.println("2: Dienstag");
-				System.out.println("3: Mittwoch");
-				System.out.println("4: Donnerstag");
-				System.out.println("5: Freitag");
-				System.out.println("6: Samstag");
-				System.out.println("7: Sonntag");
-				tag=(sc.nextInt()-1);
+				tag=get_day();
 				if(tag>=0 && tag<=6) {
 					System.out.println("In welcher Stunde?");
 					stunde=sc.nextInt();
@@ -53,48 +66,30 @@ public class pseudoterminplaner {
 				}
 				break;
 			case 2:
-				System.out.println("Tag?");
-				System.out.println("1: Montag");
-				System.out.println("2: Dienstag");
-				System.out.println("3: Mittwoch");
-				System.out.println("4: Donnerstag");
-				System.out.println("5: Freitag");
-				System.out.println("6: Samstag");
-				System.out.println("7: Sonntag");
-				tag=(sc.nextInt()-1);
-				if(tag>=0 && tag<=6) {
-					System.out.println("In welcher Stunde?");
-					stunde=sc.nextInt();
-					if (stunde<=23 && stunde>=0) {
-						termine[tag][stunde]="";
-					}
+				tag=get_day();
+				System.out.println("In welcher Stunde?");
+				stunde=sc.nextInt();
+				if (stunde<=23 && stunde>=0) {
+					termine[tag][stunde]="";
 				}
 				break;
 			case 3:
 				submenu=true;
-				while (submenu) {
+				do  {
 					System.out.println("Welchen Tag willst sehen?");
-					System.out.println("Tag?");
-					System.out.println("1: Montag");
-					System.out.println("2: Dienstag");
-					System.out.println("3: Mittwoch");
-					System.out.println("4: Donnerstag");
-					System.out.println("5: Freitag");
-					System.out.println("6: Samstag");
-					System.out.println("7: Sonntag");
-					System.out.println("9: Exit");
-					tag=(sc.nextInt()-1);
-					if(tag>=0 && tag<=6) {
-						System.out.println("Am " + termine[tag][24] + 
-								" liegt folgendes an:");
-						for (int i=0;i<24;i++) {
-							System.out.println(i + " Uhr: " + termine[tag][i]);
-							}
+					tag=get_day();
+					System.out.println("Am " + termine[tag][24] + 
+						" liegt folgendes an:");
+					for (int i=0;i<24;i++) {
+						System.out.println(i + " Uhr: " + termine[tag][i]);
 						}
-					if(tag==8) {
+					System.out.println("Weiteren Tag anzeigen? (Y/n)");
+					String checker=sc.next();
+					if(checker.equals("n") || checker.equals("N")) {
 						submenu=false;
 					}
 				}
+				while (submenu);
 				break;
 			default:
 				System.out.println("Doofer Wert.");
