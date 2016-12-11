@@ -46,7 +46,7 @@ public class String2PW {
 			else if (args[i].equals("lower")) {
 				test=test+2;
 			}
-			else if (args[i].equals("ulu")) {
+			else if (args[i].equals("camel")) {
 				test=test+1;
 			}	
 		}
@@ -59,7 +59,7 @@ public class String2PW {
 		System.out.println("normal : Upper/Lowercase werden nicht verändert.");			
 		System.out.println("upper  : Alle Zeichen Upper-Case");
 		System.out.println("lower  : 3x dürfen Sie raten..");
-		System.out.println("ulu    : Abwechselnd Upper/Lower/Upper");
+		System.out.println("camel    : Abwechselnd Upper/Lower/Upper");
 		System.out.println("Die Argumente können auch beliebig kombiniert werden.");
 		return;
 	}
