@@ -35,6 +35,7 @@ public class pwgen {
 	return pwarray;
 	}
 	
+	@SuppressWarnings("resource")
 	public String create () {
 		SecureRandom random = new SecureRandom();
 		Scanner sc = new Scanner(System.in);

@@ -178,10 +178,28 @@ public class login {
 						String nuser=sc.next();
 						if (check_uname(nuser, Credentials)==0) {
 							//System.out.println("Bitte Passwort eingeben:");
-							Credentials[acccount][0]=nuser;
-							Credentials[acccount][1]=pwg.create();
-							acccount++;
-							System.out.println("Benutzer erfolgreich angelegt.");
+							System.out.println("Optionen:");
+							System.out.println("1: Eigenes PW eingeben.");
+							System.out.println("2: Zufälliges PW generieren lassen");
+							int option=sc.nextInt();
+							switch (option) {
+							case 1: 
+								Credentials[acccount][0]=nuser;
+								System.out.println("Bitte PW eingeben.");
+								Credentials[acccount][1]=sc.next();
+								acccount++;
+								System.out.println("Benutzer erfolgreich angelegt.");
+								break;
+							case 2:
+								Credentials[acccount][0]=nuser;
+								Credentials[acccount][1]=pwg.create();
+								acccount++;
+								System.out.println("Benutzer erfolgreich angelegt.");
+								break;
+							default:
+								System.out.println("Abgebrochen.");
+							}
+							
 							break;
 						}
 						else {
