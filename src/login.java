@@ -20,7 +20,9 @@
  * 
  * 
  */
- import java.util.Scanner;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Scanner;
 // import java.security.MessageDigest;
 //import java.security.NoSuchAlgorithmException;
 
@@ -47,7 +49,16 @@ public class login {
 	
 	public static boolean check_credentials(String user, String password, String Credentials[][]) {
 		for (int i=0;i<Credentials.length;i++){
-			if(user.equals(Credentials[i][0]) && password.equals(Credentials[i][1])) {
+			MessageDigest md;
+			try {
+				md = MessageDigest.getInstance("SHA-256");
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+				break;
+			}
+			md.update(password.getBytes());
+			String hashedPW = new String(md.digest());
+			if(user.equals(Credentials[i][0]) && hashedPW.equals(Credentials[i][1])) {
 			return true;
 			}
 		}
@@ -62,15 +73,29 @@ public class login {
 		return 0;
 	}
 	
-	public static void main (String[] args){ // throws NoSuchAlgorithmException {
+	public static void main (String[] args) {
 		pwgen pwg = new pwgen();
+		String tmppw;
+		String encryptedPW;
 //		String test = pwg.create();
 //		System.out.println(test);
-//		MessageDigest md = MessageDigest.getInstance("SHA-512");
+		MessageDigest messageDigest;
+		try {
+			messageDigest = MessageDigest.getInstance("SHA-256");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return;
+		}
+//		messageDigest.update(test.getBytes());
+//		String encryptedString = new String(messageDigest.digest());
+//		System.out.println(encryptedString);
 		Scanner sc = new Scanner(System.in);
 		String[][] Credentials = new String[1][2]; //Deklaration und Erzeugung des Arrays
 		Credentials[0][0]="root";
-		Credentials[0][1]="root";
+		messageDigest.update("root".getBytes());
+		encryptedPW = new String(messageDigest.digest());
+		Credentials[0][1]=encryptedPW;
+	//	Credentials[0][1]="root";
 		boolean loggedin=false;
 		int tester=0;
 		int acccount=1;								//Counts existing accounts.
@@ -80,10 +105,10 @@ public class login {
 		String pass="1";
 		while (true) {
 			if (!loggedin) {
-				System.out.println("Men√º:");
+				System.out.println("Men¸:");
 				System.out.println("1: Login");
 				System.out.println("0: Exit");
-				System.out.println("Bitte w√§hlen.");
+				System.out.println("Bitte w‰hlen.");
 				menuvar=sc.nextInt();
 				switch (menuvar) {
 					case 0: 
@@ -120,14 +145,14 @@ public class login {
 					}
 				}
 			else {
-				System.out.println("Hallo " + cuser + "! Dein Men√º:");
-				System.out.println("1: Account l√∂schen.");
-				System.out.println("2: Passwort anderer User √§ndern");
-				System.out.println("3: eigenes Passwort √§ndern");
+				System.out.println("Hallo " + cuser + "! Dein Men¸:");
+				System.out.println("1: Account lˆschen.");
+				System.out.println("2: Passwort anderer User ‰ndern");
+				System.out.println("3: eigenes Passwort ‰ndern");
 				System.out.println("4: Account erstellen");
 				System.out.println("9: Exit");
 				System.out.println("0: Logout");
-				System.out.println("Bitte w√§hlen.");
+				System.out.println("Bitte w‰hlen.");
 				menuvar=(int)sc.nextInt();
 				switch (menuvar) {
 					case 0: 
@@ -136,7 +161,7 @@ public class login {
 						cuser="guest";
 						break;
 					case 1:
-						System.out.println("Bitte zu l√∂schenden Usernamen eingeben:");
+						System.out.println("Bitte zu lˆschenden Usernamen eingeben:");
 						muser=sc.next();
 						tester=check_uname(muser, Credentials);
 						if(tester>0) {
@@ -144,7 +169,7 @@ public class login {
 							Credentials[tester][1]=Credentials[acccount-1][1];
 							acccount--;
 							Credentials=reduce_size(Credentials, acccount);
-							System.out.println("Account wurde erfolgreich gel√∂scht.");
+							System.out.println("Account wurde erfolgreich gelˆscht.");
 							break;
 							}
 						System.out.println("Username existiert nicht.");
@@ -156,8 +181,12 @@ public class login {
 						tester=check_uname(muser, Credentials);
 						if(tester>0) {
 							System.out.println("Bitte neues Passwort eingeben:");
-							Credentials[tester][1]=sc.next();
-							System.out.println("Passwort wurde erfolgreich ge√§ndert.");
+		//					Credentials[tester][1]=sc.next();
+							tmppw=sc.next();
+							messageDigest.update(tmppw.getBytes());
+							encryptedPW = new String(messageDigest.digest());
+							Credentials[tester][1]=encryptedPW;
+							System.out.println("Passwort wurde erfolgreich ge‰ndert.");
 							break;
 							}
 						System.out.println("Username exisitiert nicht.");
@@ -166,7 +195,11 @@ public class login {
 						tester=check_uname(cuser, Credentials);
 						if (tester>0) {
 							System.out.println("Bitte neues PW eingeben:");
-							Credentials[tester][1]=sc.next();
+							//Credentials[tester][1]=sc.next();
+							tmppw=sc.next();
+							messageDigest.update(tmppw.getBytes());
+							encryptedPW = new String(messageDigest.digest());
+							Credentials[tester][1]=encryptedPW;
 						}
 						
 						break;
@@ -180,19 +213,27 @@ public class login {
 							//System.out.println("Bitte Passwort eingeben:");
 							System.out.println("Optionen:");
 							System.out.println("1: Eigenes PW eingeben.");
-							System.out.println("2: Zuf√§lliges PW generieren lassen");
+							System.out.println("2: Zuf‰lliges PW generieren lassen");
 							int option=sc.nextInt();
 							switch (option) {
 							case 1: 
 								Credentials[acccount][0]=nuser;
 								System.out.println("Bitte PW eingeben.");
-								Credentials[acccount][1]=sc.next();
+							//	Credentials[acccount][1]=sc.next();
+								tmppw=sc.next();
+								messageDigest.update(tmppw.getBytes());
+								encryptedPW = new String(messageDigest.digest());
+								Credentials[acccount][1]=encryptedPW;
 								acccount++;
 								System.out.println("Benutzer erfolgreich angelegt.");
 								break;
 							case 2:
 								Credentials[acccount][0]=nuser;
-								Credentials[acccount][1]=pwg.create();
+			//					Credentials[acccount][1]=pwg.create();
+								tmppw=pwg.create();
+								messageDigest.update(tmppw.getBytes());
+								encryptedPW = new String(messageDigest.digest());
+								Credentials[acccount][1]=encryptedPW;
 								acccount++;
 								System.out.println("Benutzer erfolgreich angelegt.");
 								break;
