@@ -42,9 +42,9 @@ public class pwgen {
 		System.out.println("Wie lang solls PW werden?");
 		int arraylength=sc.nextInt();
 //		sc.close();
-		if (arraylength==0){
-			System.out.println("Schlaukopf ...");
-			return "";
+		if (arraylength<1){
+			System.out.println("Schlaukopf ... bitte nochmal mit positiver Länge.");
+			return create();
 			}
 		int pw[]= new int[arraylength];							//Array erzeugen
 		for (int i=0; i<(arraylength/4); i++) {
@@ -82,4 +82,3 @@ public class pwgen {
 	//	create();
 	}
 }
-

@@ -23,10 +23,54 @@
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
-// import java.security.MessageDigest;
-//import java.security.NoSuchAlgorithmException;
 
 public class login {
+
+	public static boolean isHashFunctionAvailable(String s)
+	{
+	    try{MessageDigest.getInstance(s);}
+	    catch(NoSuchAlgorithmException x)
+	    {
+	         return false;
+	    }
+	    return true;
+	}
+	
+	public static MessageDigest getAvailableMessageDigest() {
+	    if(isHashFunctionAvailable("SHA-512")){
+	    	try {
+				return MessageDigest.getInstance("SHA-512");
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+				return null;
+			}
+	    	}
+	    else if(isHashFunctionAvailable("SHA-256")) {
+	    	try {
+				return MessageDigest.getInstance("SHA-256");
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+				return null;
+			}
+	    	}
+	    else if(isHashFunctionAvailable("SHA-1")) {
+	    	try {
+				return MessageDigest.getInstance("SHA-1");
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+				return null;
+			}
+	    	}
+	    else if (isHashFunctionAvailable("MD5")) {
+	    	try {
+				return MessageDigest.getInstance("MD5");
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+				return null;
+			}
+	    }
+	    else return null;
+	}
 	
 	public static String[][] increase_size(String array[][], int newsize) {
 		String tmp[][] = new String[newsize][2];
@@ -49,13 +93,7 @@ public class login {
 	
 	public static boolean check_credentials(String user, String password, String Credentials[][]) {
 		for (int i=0;i<Credentials.length;i++){
-			MessageDigest md;
-			try {
-				md = MessageDigest.getInstance("SHA-256");
-			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
-				break;
-			}
+			MessageDigest md = getAvailableMessageDigest();
 			md.update(password.getBytes());
 			String hashedPW = new String(md.digest());
 			if(user.equals(Credentials[i][0]) && hashedPW.equals(Credentials[i][1])) {
@@ -79,13 +117,7 @@ public class login {
 		String encryptedPW;
 //		String test = pwg.create();
 //		System.out.println(test);
-		MessageDigest messageDigest;
-		try {
-			messageDigest = MessageDigest.getInstance("SHA-256");
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-			return;
-		}
+		MessageDigest messageDigest=getAvailableMessageDigest();
 //		messageDigest.update(test.getBytes());
 //		String encryptedString = new String(messageDigest.digest());
 //		System.out.println(encryptedString);
