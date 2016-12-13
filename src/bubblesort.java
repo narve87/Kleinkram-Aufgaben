@@ -27,7 +27,7 @@ public class bubblesort {
 				}
 				else {
 					tmp=b+1;
-					Martin.fine("Kein Switch nötig. Index " + b + ":" + zuSortieren[b] + " ist bereits größer als Index " + tmp +
+					Martin.fine("Kein Switch nötig. Index " + b + ":" + zuSortieren[b] + " ist bereits kleiner als Index " + tmp +
 							":" + zuSortieren[tmp]);
 				}
 			}
