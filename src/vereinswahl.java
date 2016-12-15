@@ -1,10 +1,12 @@
+import java.io.IOException;
 import java.util.Scanner;
 public class vereinswahl {
 
-	public static void main(String[] args) {
-		int[] Array = new int[40];
+	public static void main(String[] args) throws SecurityException, IOException {
+		int[][] Array = new int[40][2];
 		for (int i=0; i<Array.length; i++) {
-			Array[i]=0;
+			Array[i][1]=0;
+			Array[i][0]=i;
 		}
 		Scanner sc = new Scanner(System.in);
 		int wahl=0;
@@ -22,16 +24,17 @@ public class vereinswahl {
 					badvote++;
 				}
 				else {
-					Array[wahl]++;
+					Array[wahl][1]++;
 					goodvote++;
 				}
 			}
 			
 			
 		}
-		for (int i=0; i<Array.length; i++) {
-			if(Array[i]>0) {
-				System.out.println("Der Kandidat " + i + " erhielt " + Array[i] + " Stimmen.");
+		Array=bubblewahl.bubble(Array);
+		for (int i=Array.length-1; i>Array.length-6; i--) {
+			if(Array[i][1]>0) {
+				System.out.println("Der Kandidat " + Array[i][0] + " erhielt " + Array[i][1] + " Stimmen.");
 			}
 			
 		}
