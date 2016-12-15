@@ -137,10 +137,10 @@ public class login {
 		String pass="1";
 		while (true) {
 			if (!loggedin) {
-				System.out.println("Men¸:");
+				System.out.println("Men√º:");
 				System.out.println("1: Login");
 				System.out.println("0: Exit");
-				System.out.println("Bitte w‰hlen.");
+				System.out.println("Bitte w√§hlen.");
 				menuvar=sc.nextInt();
 				switch (menuvar) {
 					case 0: 
@@ -177,14 +177,14 @@ public class login {
 					}
 				}
 			else {
-				System.out.println("Hallo " + cuser + "! Dein Men¸:");
-				System.out.println("1: Account lˆschen.");
-				System.out.println("2: Passwort anderer User ‰ndern");
-				System.out.println("3: eigenes Passwort ‰ndern");
+				System.out.println("Hallo " + cuser + "! Dein Men√º:");
+				System.out.println("1: Account l√∂schen.");
+				System.out.println("2: Passwort anderer User √§ndern");
+				System.out.println("3: eigenes Passwort √§ndern");
 				System.out.println("4: Account erstellen");
 				System.out.println("9: Exit");
 				System.out.println("0: Logout");
-				System.out.println("Bitte w‰hlen.");
+				System.out.println("Bitte w√§hlen.");
 				menuvar=(int)sc.nextInt();
 				switch (menuvar) {
 					case 0: 
@@ -193,7 +193,7 @@ public class login {
 						cuser="guest";
 						break;
 					case 1:
-						System.out.println("Bitte zu lˆschenden Usernamen eingeben:");
+						System.out.println("Bitte zu l√∂schenden Usernamen eingeben:");
 						muser=sc.next();
 						tester=check_uname(muser, Credentials);
 						if(tester>0) {
@@ -201,7 +201,7 @@ public class login {
 							Credentials[tester][1]=Credentials[acccount-1][1];
 							acccount--;
 							Credentials=reduce_size(Credentials, acccount);
-							System.out.println("Account wurde erfolgreich gelˆscht.");
+							System.out.println("Account wurde erfolgreich gel√∂scht.");
 							break;
 							}
 						System.out.println("Username existiert nicht.");
@@ -218,7 +218,7 @@ public class login {
 							messageDigest.update(tmppw.getBytes());
 							encryptedPW = new String(messageDigest.digest());
 							Credentials[tester][1]=encryptedPW;
-							System.out.println("Passwort wurde erfolgreich ge‰ndert.");
+							System.out.println("Passwort wurde erfolgreich ge√§ndert.");
 							break;
 							}
 						System.out.println("Username exisitiert nicht.");
@@ -245,7 +245,7 @@ public class login {
 							//System.out.println("Bitte Passwort eingeben:");
 							System.out.println("Optionen:");
 							System.out.println("1: Eigenes PW eingeben.");
-							System.out.println("2: Zuf‰lliges PW generieren lassen");
+							System.out.println("2: Zuf√§lliges PW generieren lassen");
 							int option=sc.nextInt();
 							switch (option) {
 							case 1: 
