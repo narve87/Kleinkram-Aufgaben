@@ -43,7 +43,7 @@ public class pwgen {
 		int arraylength=sc.nextInt();
 //		sc.close();
 		if (arraylength<1){
-			System.out.println("Schlaukopf ... bitte nochmal mit positiver Länge.");
+			System.out.println("Schlaukopf ... bitte nochmal mit positiver LÃ¤nge.");
 			return create();
 			}
 		int pw[]= new int[arraylength];							//Array erzeugen
