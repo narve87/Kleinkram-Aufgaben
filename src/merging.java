@@ -52,9 +52,9 @@ public class merging {
 	}
 	public static void main(String[] args) {
 		SecureRandom random = new SecureRandom();
-		int[] test = new int[100];
+		int[] test = new int[100000];
 		for (int i=0; i<test.length; i++) {
-			test[i]=random.nextInt(10000);
+			test[i]=random.nextInt(1000000);
 		}
 		for (int i=0; i<test.length; i++) {
 			System.out.print(i + ":" + test[i] + " ");

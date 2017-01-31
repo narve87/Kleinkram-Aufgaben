@@ -36,16 +36,18 @@ public class bubblesort {
 	}
 	public static void main(String[] args) throws SecurityException, IOException {
 		SecureRandom random = new SecureRandom();
-		int[] werte = new int[1000];
+		int[] werte = new int[50000];
 		for (int i=0; i<werte.length; i++) {
-			werte[i]=random.nextInt(500000);			
+			werte[i]=random.nextInt(5000000);			
 		}
 		for (int i=0; i<werte.length; i++) {
-			System.out.println(i + ":" + werte[i]);			
+			System.out.print(i + ":" + werte[i] + " ");
 		}
+		System.out.println();
 		werte=bubble(werte);
 		for (int i=0; i<werte.length; i++) {
-			System.out.println(i + ":" + werte[i]);			
+			System.out.print(i + ":" + werte[i] + " ");			
 		}
+		System.out.println();
 	}
 }
